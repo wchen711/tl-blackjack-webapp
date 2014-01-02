@@ -1,0 +1,44 @@
+<div style="background-color:green">
+	<table cellpadding="10">
+		<tr>
+			<th><h4 style="color:white; text-align:left">Dealer:</h4></th>
+		</tr>
+		<tbody>
+		<tr>
+			<% if @player_can_continue %>
+				<td><img src="images/cards/cover.jpg" alt="Cover"></td>
+				<td><img src=<%= get_card_img_string(@dealer_cards[1]) %> alt=<%= @dealer_cards[1].to_s %>></td>
+			<% else %>
+				<% @dealer_cards.each do |card| %>
+					<td><img src=<%= get_card_img_string(card) %> alt=<%= card.to_s %>></td>
+				<% end %>
+			<% end %>
+		</tr>
+		</tbody>
+	</table>
+	<br></br>
+	<table cellpadding="10">
+		<tr>
+			<th><h4 style="color:white; text-align:left"><%= @player_name %>: (<%= session[:game].get_player_total(@player_name) %>)</h4></th>
+		</tr>
+		<tbody>
+		<tr>
+			<% @player_cards.each do |card| %>
+				<td><img src=<%= get_card_img_string(card) %> alt=<%= card.to_s %>></td>
+			<% end %>
+		</tr>
+		</tbody>
+	</table>
+	<% if @player_can_continue %>
+  	<ul class="pager">
+  		<li><a href="player_hit"> Hit </a></li>
+  		<li><a href="player_stay">Stay</a></li>
+  	</ul>
+	<% else %>
+		<h4 style="text-align:center; color:white"><%= get_result_message(@status) %></h4>
+		<ul class="pager">
+			<li><a href="deal_initial_cards">Continue</a></li>
+		</ul>
+	<% end %>
+	<br></br>
+</div>
